@@ -178,7 +178,7 @@ log 0 "XML templates edited."
 
 if [[ $PIPEWORK == 'false' || $3 == "start" ]]; then
 
-	# Start ssh
+# Start ssh
 	service ssh start
 	log 0 "SSH started."
 	var_eth0_ip ="$(ifconfig | grep -A 1 'eth0' | tail -1 | cut -d ':' -f 2 | cut -d ' ' -f 1)"
@@ -193,18 +193,23 @@ if [[ $PIPEWORK == 'false' || $3 == "start" ]]; then
 	# Remove 127.0.1.1
 	echo '127.0.0.1	localhost	localhost' > /tmp/hosts
 	log 0 "Changed 127.0.1.1 to $var_ip."
+    # Create the master entry for /etc/hosts
+	master_entry=$(printf "$master_ip\t$master_hostname")
+	# Add the master host to /etc/hosts
+	echo "${master_entry}" >> /tmp/hosts
+	log 0 "$master_entry added to /tmp/hosts."
+	# Add all slaves to /etc/hosts
+	for slave_entry in  "${slaves[@]}"
+		do
+		# Add slave host to /etc/hosts
+		echo "${slave_entry}" >> /tmp/hosts
+		log 0 "$slave_entry added to /tmp/hosts."
+	done
+	# Replace the original /etc/hosts
+	cp /tmp/hosts /etc/hosts
+	log 0 "Replaced /etc/hosts."
 	# Set master mode
-	if [[ $var_ip == $master_ip ]]; then
-		# Add all slaves to /etc/hosts
-		for slave_entry in  "${slaves[@]}"
-			do
-			# Add slave host to /etc/hosts
-			echo "${slave_entry}" >> /tmp/hosts
-			log 0 "$slave_entry added to /tmp/hosts."
-			done
-		# Replace the original /etc/hosts
-			cp /tmp/hosts /etc/hosts
-		log 0 "Replaced /etc/hosts."
+	if [[ $var_ip == $master_ip ]]; then		
 		# Formatting namenode, starting namenode and resourcemanager
 			$HADOOP_PREFIX/bin/hdfs namenode -format -force
 		log 0 "Namenode formatted."
@@ -214,21 +219,6 @@ if [[ $PIPEWORK == 'false' || $3 == "start" ]]; then
 		log 0 "Resourcemanager started."
 	# Set slave mode
 	else
-		# Create the master entry for /etc/hosts
-		master_entry=$(printf "$master_ip\t$master_hostname")
-		# Add the master host to /etc/hosts
-			echo "${master_entry}" >> /tmp/hosts
-		log 0 "$master_entry added to /tmp/hosts."
-		# Add all slaves to /etc/hosts
-		for slave_entry in  "${slaves[@]}"
-			do
-			# Add slave host to /etc/hosts
-			echo "${slave_entry}" >> /tmp/hosts
-			log 0 "$slave_entry added to /tmp/hosts."
-			done
-		# Replace the original /etc/hosts
-			cp /tmp/hosts /etc/hosts
-			log 0 "Replaced /etc/hosts."
 		# Starting datanode and nodemanager
 		$HADOOP_PREFIX/sbin/hadoop-daemon.sh start datanode
 			log 0 "Datanode started."
