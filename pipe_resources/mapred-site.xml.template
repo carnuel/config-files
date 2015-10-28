@@ -1,7 +1,7 @@
 <configuration>
     <property>
         <name>yarn.app.mapreduce.am.resource.mb</name>
-        <value>1024</value>
+        <value>768</value>
     </property>
     <property>
         <name>yarn.app.mapreduce.am.command-opts</name>
@@ -24,7 +24,7 @@
     </property>
     <property>
         <name>mapreduce.map.memory.mb</name>
-        <value>1024</value>
+        <value>768</value>
         <description>Larger resource limit for maps.</description>
     </property>
     <property>
@@ -34,7 +34,7 @@
     </property>
     <property>
         <name>mapreduce.reduce.memory.mb</name>
-        <value>1024</value>
+        <value>768</value>
         <description>Larger resource limit for reduces.</description>
     </property>
     <property>
