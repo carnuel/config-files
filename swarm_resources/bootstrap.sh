@@ -24,15 +24,6 @@ function log()
 	fi
 }
 
-# Ending the script
-function terminate()
-{
-	if [[ $1 == true ]]; then
-        	log 0 "Ending script."
-		exit 0
-	fi
-}
-
 # Variables
 master_ip="0.0.0.0"           	 	# Master IP
 master_hostname="master"	# Master Hostname
