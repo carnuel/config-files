@@ -1,7 +1,4 @@
 #!/bin/bash
-if [[ $1 == "-d" ]]; then
-        while true; do sleep 1000; done
-fi
 # Static global variables
 CONFIG_FILE="/mnt/cluster.cnf"
 
@@ -75,7 +72,7 @@ master_ip=""            # Master IP
 master_hostname=""	# Master Hostname
 delimiter=";"           # Delimiter to split host string
 # ip of this host
-this_host_ip="$(ifconfig | grep -A 1 'eth0' | tail -1 | cut -d ':' -f 2 | cut -d ' ' -f 1)"
+this_host_ip="$(ifconfig | grep -A 1 'eth0 ' | tail -1 | cut -d ':' -f 2 | cut -d ' ' -f 1)"
 
 # Start editing /etc/hosts in a temporary file
 # Add second localhost hostname
