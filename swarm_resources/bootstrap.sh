@@ -25,35 +25,9 @@ function log()
 }
 
 # Variables
-master_ip="0.0.0.0"           	 	# Master IP
 master_hostname="master"	# Master Hostname
 # ip of this host
 this_host_ip="$(ifconfig | grep -A 1 'eth0' | tail -1 | cut -d ':' -f 2 | cut -d ' ' -f 1)"
-
-# Start editing /etc/hosts in a temporary file
-# Add second localhost hostname
-# Remove 127.0.1.1
-#sed -e "s/127.0.1.1/$this_host_ip/" -e '/127.0.0.1/c 127.0.0.1\tlocalhost\tlocalhost' /etc/hosts > /tmp/hosts
-#log 0 "Changed 127.0.1.1 to $this_host_ip."
-#log 0 "Added second localhost tag to 127.0.0.1."
-
-
-# Replace the original /etc/hosts
-#cp /tmp/hosts /etc/hosts
-#rm /tmp/hosts
-#log 0 "Replaced /etc/hosts by newly created /tmp/hosts."
-
-#end_script=false
-# End if no master has been assigned.
-#if [[ $master_ip == "" ]]; then
-#	log 3 "No master ip assigend."
-#	end_script=true
-#fi
-#if [[ $master_hostname == "" ]]; then
-#        log 3 "No master hostname assigend."
-#        end_script=true
-#fi
-#terminate $end_script
 
 # Edit xml.templates
 sed s/HOSTNAME/$master_hostname/ $HADOOP_PREFIX/etc/hadoop/core-site.xml.template > $HADOOP_PREFIX/etc/hadoop/core-site.xml
