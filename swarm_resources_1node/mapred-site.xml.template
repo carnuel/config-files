@@ -1,11 +1,11 @@
 <configuration>
     <property>
         <name>yarn.app.mapreduce.am.resource.mb</name>
-        <value>768</value>
+        <value>1024</value>
     </property>
     <property>
         <name>yarn.app.mapreduce.am.command-opts</name>
-        <value>-Xmx512m</value>
+        <value>-Xmx768m</value>
     </property>
     <property>
         <name>mapreduce.framework.name</name>
@@ -24,38 +24,26 @@
     </property>
     <property>
         <name>mapreduce.map.memory.mb</name>
-        <value>512</value>
+        <value>1024</value>
         <description>Larger resource limit for maps.</description>
     </property>
     <property>
         <name>mapreduce.map.java.opts</name>
-        <value>-Xmx256m</value>
+        <value>-Xmx768m</value>
         <description>Heap-size for child jvms of maps.</description>
     </property>
     <property>
         <name>mapreduce.reduce.memory.mb</name>
-        <value>512</value>
+        <value>1024</value>
         <description>Larger resource limit for reduces.</description>
     </property>
     <property>
         <name>mapreduce.reduce.java.opts</name>
-        <value>-Xmx256m</value>
+        <value>-Xmx768m</value>
         <description>Heap-size for child jvms of reduces.</description>
     </property>
     <property>
         <name>mapreduce.jobtracker.address</name>
         <value>HOSTNAME:8021</value>
-    </property>
-    <property>
-        <name>mapreduce.tasktracker.map.tasks.maximum</name>
-        <value>1</value>
-    </property>
-    <property>
-        <name>mapreduce.tasktracker.reduce.tasks.maximum</name>
-        <value>1</value>
-    </property>
-    <property>
-        <name>mapreduce.job.reduce.slowstart.completedmaps</name>
-        <value>1</value>
     </property>
 </configuration>
